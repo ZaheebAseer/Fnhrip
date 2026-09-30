@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>FNHRIP Command Centre – Dashboard Mockup</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#eef3f1;--panel:#fff;--ink:#12262b;--mute:#5b7076;--line:#d5e0dd;--teal:#0b7a75;--map:#0f2a2e;--s0:#2f6f6a;--s1:#4f9a8f;--s2:#e8a317;--s3:#e4572e;--s4:#b3261e;--hexline:#0f2a2e;--arc:#f6f1d8;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0b1517;--panel:#12222580;--ink:#e6f0ee;--mute:#8fa8ab;--line:#22383b;--teal:#3fc1b8;--map:#081113;--hexline:#081113}}
+:root[data-theme="dark"]{--bg:#0b1517;--panel:#122225;--ink:#e6f0ee;--mute:#8fa8ab;--line:#22383b;--teal:#3fc1b8;--map:#081113;--hexline:#081113}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:'Bricolage Grotesque',system-ui,sans-serif;font-variant-numeric:tabular-nums;line-height:1.45}
+.app{display:grid;grid-template-columns:200px 1fr;min-height:100vh}
+nav{padding:22px 16px;border-right:1px solid var(--line);display:flex;flex-direction:column;gap:4px}
+.logo{font-weight:800;font-size:20px;letter-spacing:-.02em;margin-bottom:18px}.logo span{color:var(--teal)}
+nav a{padding:8px 10px;border-radius:8px;color:var(--mute);text-decoration:none;font-size:14px}
+nav a.on{background:var(--panel);color:var(--ink);font-weight:600;box-shadow:inset 3px 0 0 var(--teal)}
+nav a:hover{color:var(--ink)}
+.role{margin-top:auto;font-size:12px;color:var(--mute)}
+main{padding:22px 26px;min-width:0}
+.top{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:16px;font-size:13px;color:var(--mute)}
+button{font:inherit;cursor:pointer}
+.tog{background:none;border:1px solid var(--line);color:var(--ink);border-radius:99px;padding:5px 12px}
+.brief{padding:6px 0 22px;max-width:62ch}
+.brief h1{font-size:clamp(26px,3.6vw,40px);line-height:1.12;margin:0 0 10px;font-weight:800;letter-spacing:-.025em}
+.brief h1 b{font-weight:800;border-bottom:3px solid var(--s3)}
+.brief p{margin:0;color:var(--mute);font-size:15px}
+.kpis{display:flex;flex-wrap:wrap;gap:0;margin-bottom:20px;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.kpi{flex:1 1 150px;padding:12px 16px 12px 0}
+.kpi+.kpi{padding-left:16px;border-left:1px solid var(--line)}
+.kpi small{display:block;color:var(--mute);font-size:12.5px}
+.kpi strong{font-size:26px;font-weight:600;letter-spacing:-.02em}
+.kpi em{font-style:normal;font-size:12.5px;color:var(--s3)}.kpi em.ok{color:var(--teal)}
+.grid{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:20px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:16px}
+.card h2{font-size:15px;margin:0 0 12px;font-weight:600}
+.mapcard{background:var(--map);border-color:var(--map);color:#e6f0ee;padding:14px 14px 10px}
+.mapcard h2{color:#e6f0ee}
+svg.map{width:100%;height:auto;display:block}
+.hex{stroke:var(--hexline);stroke-width:2;cursor:pointer;transition:opacity .15s}
+.hex:hover,.hex.sel{opacity:.75;stroke:#fff}
+.s0{fill:var(--s0)}.s1{fill:var(--s1)}.s2{fill:var(--s2)}.s3{fill:var(--s3)}.s4{fill:var(--s4)}
+.arc{fill:none;stroke:var(--arc);stroke-width:2.2;stroke-dasharray:6 6;animation:flow 1.2s linear infinite}
+@keyframes flow{to{stroke-dashoffset:-24}}
+.pulse{fill:none;stroke:var(--s4);stroke-width:2;transform-box:fill-box;transform-origin:center;animation:pl 2s ease-out infinite}
+@keyframes pl{from{transform:scale(.6);opacity:1}to{transform:scale(1.6);opacity:0}}
+@media (prefers-reduced-motion:reduce){.arc,.pulse{animation:none}}
+.legend{display:flex;gap:14px;flex-wrap:wrap;font-size:12px;color:#9db6b8;margin-top:6px}
+.legend i{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:5px;vertical-align:-1px}
+#read{font-size:13px;color:#cfe3e1;min-height:20px;margin-top:8px}
+.rec{padding:12px 0;border-top:1px solid var(--line)}
+.rec:first-of-type{border-top:0;padding-top:0}
+.rec p{margin:0 0 4px;font-size:14px}
+.why{display:flex;gap:6px;flex-wrap:wrap;font-size:12px;color:var(--mute);margin:6px 0 10px}
+.why span{border:1px solid var(--line);border-radius:6px;padding:1px 7px}
+.conf{height:5px;background:var(--line);border-radius:3px;margin:2px 0 10px;overflow:hidden}.conf div{height:100%;background:var(--teal)}
+.act{display:flex;gap:8px;align-items:center}
+.btn{border:1px solid var(--teal);background:var(--teal);color:#fff;border-radius:8px;padding:6px 14px;font-size:13px;font-weight:600}
+.btn.ghost{background:none;color:var(--ink);border-color:var(--line);font-weight:400}
+.done{font-size:13px;color:var(--teal);font-weight:600}
+.fc{display:grid;grid-template-columns:130px 1fr 52px;gap:10px;align-items:center;font-size:13.5px;padding:6px 0}
+.bar{height:8px;background:var(--line);border-radius:4px;overflow:hidden}.bar div{height:100%;border-radius:4px}
+.fc b{text-align:right;font-weight:600}
+.wide{grid-column:1/-1}
+@media (max-width:860px){.app{grid-template-columns:1fr}nav{flex-direction:row;flex-wrap:wrap;border-right:0;border-bottom:1px solid var(--line)}.role{display:none}.logo{margin:0 12px 0 0}.grid{grid-template-columns:1fr}main{padding:16px}.kpi+.kpi{border-left:0;padding-left:0}}
+</style>
+</head>
+<body>
+<div class="app">
+<nav aria-label="Main">
+  <div class="logo">FNH<span>RIP</span></div>
+  <a class="on" href="#">Command centre</a><a href="#">Inventory</a><a href="#">Beds and ICU</a><a href="#">Forecasts</a><a href="#">Recommendations</a><a href="#">Simulator</a><a href="#">Federated network</a><a href="#">Audit log</a>
+  <div class="role">Signed in as<br><b>State health secretary</b></div>
+</nav>
+<main>
+  <div class="top"><span>Updated 2 minutes ago · 4,182 of 4,310 facilities reporting</span><button class="tog" id="tog" aria-label="Switch colour theme">Dark / light</button></div>
+  <section class="brief" aria-label="Today's briefing">
+    <h1>Three districts will run short of <b>essential medicines</b> within a week.</h1>
+    <p>Moving 2,000 units of amoxicillin from Warangal to Adilabad closes the largest gap. It needs your approval before the 6 pm truck leaves.</p>
+  </section>
+  <div class="kpis">
+    <div class="kpi"><small>Medicines at risk</small><strong>37</strong> <em>+6 since yesterday</em></div>
+    <div class="kpi"><small>ICU occupancy</small><strong>78%</strong> <em>Khammam at 91%</em></div>
+    <div class="kpi"><small>Staff present today</small><strong>91%</strong> <em class="ok">Above target</em></div>
+    <div class="kpi"><small>Stock expiring in 30 days</small><strong>₹1.8 Cr</strong> <em class="ok">62% can be moved</em></div>
+  </div>
+  <div class="grid">
+    <section class="card mapcard" aria-label="District stress map">
+      <h2>District stress: medicines, beds and staff combined</h2>
+      <svg class="map" id="map" viewBox="0 0 640 380" role="img" aria-label="Hexagon map of districts coloured by stress level"></svg>
+      <div class="legend"><span><i style="background:var(--s0)"></i>Stable</span><span><i style="background:var(--s1)"></i>Watch</span><span><i style="background:var(--s2)"></i>Low stock</span><span><i style="background:var(--s3)"></i>Critical</span><span><i style="background:var(--s4)"></i>Emergency</span></div>
+      <div id="read">Select a district to see its status.</div>
+    </section>
+    <section class="card" aria-label="Recommended actions">
+      <h2>Recommended actions</h2>
+      <div class="rec"><p><b>Move 2,000 units of amoxicillin</b> from Warangal to Adilabad</p>
+        <div class="why"><span>Adilabad: 3 days of stock</span><span>Demand +42% this week</span><span>Warangal has 41 days</span></div>
+        <div class="conf" title="Confidence 92%"><div style="width:92%"></div></div>
+        <div class="act"><button class="btn">Approve</button><button class="btn ghost">Reject</button></div></div>
+      <div class="rec"><p><b>Send 60 oxygen cylinders</b> to Khammam district hospital</p>
+        <div class="why"><span>ICU at 91%</span><span>Rising 4 points a day</span><span>Nearest depot: 70 km</span></div>
+        <div class="conf" title="Confidence 84%"><div style="width:84%"></div></div>
+        <div class="act"><button class="btn">Approve</button><button class="btn ghost">Reject</button></div></div>
+      <div class="rec"><p><b>Redistribute 800 insulin vials</b> expiring in 24 days</p>
+        <div class="why"><span>Unused in Nizamabad</span><span>Needed in 3 nearby districts</span></div>
+        <div class="conf" title="Confidence 77%"><div style="width:77%"></div></div>
+        <div class="act"><button class="btn">Approve</button><button class="btn ghost">Reject</button></div></div>
+    </section>
+    <section class="card wide" aria-label="Stock-out forecast">
+      <h2>Days of stock left, state-wide (lowest first)</h2>
+      <div class="fc"><span>Amoxicillin 500 mg</span><div class="bar"><div style="width:14%;background:var(--s4)"></div></div><b>3 d</b></div>
+      <div class="fc"><span>ORS sachets</span><div class="bar"><div style="width:24%;background:var(--s3)"></div></div><b>5 d</b></div>
+      <div class="fc"><span>Oxygen cylinders</span><div class="bar"><div style="width:38%;background:var(--s2)"></div></div><b>9 d</b></div>
+      <div class="fc"><span>Paracetamol 650 mg</span><div class="bar"><div style="width:62%;background:var(--s1)"></div></div><b>18 d</b></div>
+      <div class="fc"><span>Insulin (regular)</span><div class="bar"><div style="width:88%;background:var(--s0)"></div></div><b>27 d</b></div>
+    </section>
+  </div>
+</main>
+</div>
+<script>
+(function(){
+var names=["Adilabad","Nirmal","Nizamabad","Karimnagar","Warangal","Khammam","Medak","Hyderabad","Nalgonda","Mahabubnagar","Suryapet","Jagtial","Peddapalli","Siddipet","Rangareddy","Vikarabad","Wanaparthy","Bhadradri"];
+var st=[3,2,1,1,0,4,1,2,1,2,0,1,1,0,2,1,0,3],msg=["Stable. Supplies above 30 days.","Watch. Some items trending down.","Low stock. Two items under 14 days.","Critical. Three items under 5 days.","Emergency. ICU above 90% and stock critical."];
+var svg=document.getElementById('map'),R=38,W=Math.sqrt(3)*R,ns='http://www.w3.org/2000/svg',cols=6,pos=[],h='';
+function pts(cx,cy){var p=[];for(var i=0;i<6;i++){var a=Math.PI/180*(60*i-30);p.push((cx+R*Math.cos(a)).toFixed(1)+','+(cy+R*Math.sin(a)).toFixed(1))}return p.join(' ')}
+names.forEach(function(n,i){var r=Math.floor(i/cols),c=i%cols,cx=70+W*c+(r%2?W/2:0)+80,cy=60+r*R*1.5*1.12;pos.push([cx,cy]);
+h+='<g><polygon class="hex s'+st[i]+'" data-i="'+i+'" tabindex="0" points="'+pts(cx,cy)+'"><title>'+n+'</title></polygon></g>'});
+var a=pos[0],b=pos[4];
+h+='<path class="arc" d="M'+b[0]+','+b[1]+' Q'+((a[0]+b[0])/2-60)+','+((a[1]+b[1])/2-20)+' '+a[0]+','+a[1]+'"/>';
+h+='<circle class="pulse" cx="'+pos[5][0]+'" cy="'+pos[5][1]+'" r="30"/>';
+svg.innerHTML=h;
+function show(el){var i=+el.getAttribute('data-i');document.querySelectorAll('.hex').forEach(function(x){x.classList.remove('sel')});el.classList.add('sel');document.getElementById('read').textContent=names[i]+': '+msg[st[i]]}
+svg.addEventListener('click',function(e){if(e.target.classList.contains('hex'))show(e.target)});
+svg.addEventListener('keydown',function(e){if(e.key==='Enter'&&e.target.classList.contains('hex'))show(e.target)});
+document.querySelectorAll('.rec').forEach(function(r){var bs=r.querySelectorAll('button'),act=r.querySelector('.act');
+bs[0].onclick=function(){act.innerHTML='<span class="done">Approved. Logged in audit trail.</span>'};
+bs[1].onclick=function(){act.innerHTML='<span class="done" style="color:var(--mute)">Rejected. Reason requested.</span>'}});
+document.getElementById('tog').onclick=function(){var d=document.documentElement,dark=d.getAttribute('data-theme')?d.getAttribute('data-theme')==='dark':matchMedia('(prefers-color-scheme:dark)').matches;d.setAttribute('data-theme',dark?'light':'dark')};
+})();
+</script>
+</body>
+</html>

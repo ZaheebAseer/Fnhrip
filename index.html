@@ -1,0 +1,949 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Federated National Health Resource Intelligence Platform (FNHRIP) - Sovereign digital infrastructure for real-time visibility, predictive supply chain intelligence, capacity optimization, and federated learning.">
+  <title>FNHRIP | Federated National Health Resource Intelligence Platform</title>
+
+  <!-- Google Fonts: Modern Typography -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Core Stylesheets -->
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/insights.css">
+  <link rel="stylesheet" href="css/command.css">
+</head>
+<body>
+  <div class="app-container">
+    
+    <!-- LEFT SIDEBAR NAVIGATION -->
+    <aside class="app-sidebar">
+      <div class="sidebar-brand">
+        <div class="brand-icon">
+          <svg width="22" height="22" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+          </svg>
+        </div>
+        <div class="brand-text">
+          <h1>FNHRIP</h1>
+          <span class="brand-badge">Sovereign Node</span>
+        </div>
+      </div>
+
+      <nav class="sidebar-nav">
+        <div class="nav-section-title">Command & Control</div>
+        <a class="nav-item active" data-tab="command" id="navCommand">
+          <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 5a1 1 0 011-1h4a1 1 0 011 1v5a1 1 0 01-1 1H5a1 1 0 01-1-1V5zm10 0a1 1 0 011-1h4a1 1 0 011 1v2a1 1 0 01-1 1h-4a1 1 0 01-1-1V5zM4 15a1 1 0 011-1h4a1 1 0 011 1v4a1 1 0 01-1 1H5a1 1 0 01-1-1v-4zm10-3a1 1 0 011-1h4a1 1 0 011 1v7a1 1 0 01-1 1h-4a1 1 0 01-1-1v-7z"/></svg>
+          <span>Command Centre</span>
+        </a>
+        <a class="nav-item" data-tab="national-map" id="navMap">
+          <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7"/></svg>
+          <span>National GIS Map</span>
+        </a>
+
+        <a class="nav-item" data-tab="inventory" id="navInventory">
+          <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/></svg>
+          <span>Medicine & FEFO</span>
+          <span class="nav-badge badge-warning" id="navStockAlertsBadge">0</span>
+        </a>
+
+        <a class="nav-item" data-tab="capacity" id="navCapacity">
+          <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>
+          <span>Beds & Capacity</span>
+        </a>
+
+        <div class="nav-section-title">Signature Intelligence</div>
+        <a class="nav-item" data-tab="weather" id="navWeather"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z"/></svg><span>Supply Weather</span></a>
+        <a class="nav-item" data-tab="cascade" id="navCascade"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg><span>Cascade Simulator</span></a>
+        <a class="nav-item" data-tab="ledger" id="navLedger"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg><span>Impact Ledger</span></a>
+
+        <div class="nav-section-title">AI & Decision Support</div>
+        <a class="nav-item" data-tab="predictions" id="navPredictions">
+          <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/></svg>
+          <span>Predictive AI</span>
+        </a>
+
+        <a class="nav-item" data-tab="recommendations" id="navRecommendations">
+          <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"/></svg>
+          <span>AI Redistribution</span>
+          <span class="nav-badge badge-critical" id="navRecsBadge">0</span>
+        </a>
+
+        <a class="nav-item" data-tab="simulator" id="navSimulator">
+          <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"/></svg>
+          <span>What-If Simulator</span>
+        </a>
+
+        <div class="nav-section-title">Federation & Resilience</div>
+        <a class="nav-item" data-tab="federated" id="navFederated">
+          <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+          <span>Federated Network</span>
+        </a>
+
+        <a class="nav-item" data-tab="offline" id="navOffline">
+          <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 5.636a9 9 0 010 12.728m0 0l-2.829-2.829m2.829 2.829L21 21M15.536 8.464a5 5 0 010 7.072m0 0l-2.829-2.829m-4.243 4.243a9 9 0 01-2.828-5.657m0 0a9 9 0 012.828-7.071m0 0l2.829 2.829m-2.829-2.829L3 3"/></svg>
+          <span>Offline PHC Station</span>
+          <span class="nav-badge badge-gray" id="offlineQueueCountBadge">0</span>
+        </a>
+
+        <a class="nav-item" data-tab="audit" id="navAudit">
+          <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+          <span>Sovereign Audit Ledger</span>
+        </a>
+      </nav>
+
+      <div class="sidebar-footer">
+        <div class="node-status-widget">
+          <div class="node-status-header">
+            <span style="font-weight:600;color:#64748b;">Sovereign Protocol</span>
+            <span class="pulse-indicator"></span>
+          </div>
+          <div style="font-size:11px;color:#0f172a;font-weight:700;">NODE-NAT-01</div>
+          <div style="font-size:10px;color:#64748b;margin-top:2px;">Federation: Secure FedAvg</div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- MAIN APPLICATION WRAPPER -->
+    <main class="app-main">
+      
+      <!-- TOP COMMAND HEADER -->
+      <header class="app-header">
+        <div class="header-left">
+          <div class="view-heading">
+            <h2 id="viewTitleHeading">National Command Centre & GIS Intelligence</h2>
+            <span class="view-sub">Federated National Health Resource Intelligence Platform • v1.0</span>
+          </div>
+        </div>
+
+        <div class="header-filters">
+          <select id="filterDistrictSelect" class="select" title="Filter by District">
+            <option value="">All Districts (National)</option>
+          </select>
+          <select id="filterFacilityTypeSelect" class="select" title="Filter by Facility Type">
+            <option value="">All Facility Types</option>
+            <option value="PHC">Primary Health Centres (PHC)</option>
+            <option value="CHC">Community Health Centres (CHC)</option>
+            <option value="District Hospital">District Hospitals</option>
+            <option value="Medical College">Medical Colleges</option>
+            <option value="Warehouse">Medical Depots / Warehouses</option>
+          </select>
+        </div>
+
+        <div class="header-right">
+          <!-- Offline / Online Status Badge -->
+          <div id="headerConnectivityBadge" class="badge badge-normal" style="cursor:pointer;" onclick="App.switchTab('offline')">
+            <span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#10b981;"></span>
+            <span>ONLINE: Grid Synced</span>
+          </div>
+
+          <!-- Active Role & Permission Indicator Badge -->
+          <div id="headerRoleBadge" class="badge" style="background:#eff6ff;color:#1d4ed8;border:1px solid #bfdbfe;font-size:11px;font-weight:600;padding:5px 9px;" title="Active Sovereign Privileges">
+            <span id="headerRoleDot" style="display:inline-block;width:7px;height:7px;border-radius:50%;background:#2563eb;margin-right:4px;"></span>
+            <span id="headerRoleLabel">ADMIN (Full Sovereignty)</span>
+          </div>
+
+          <!-- Role Switcher -->
+          <select id="roleSwitcherSelect" class="select" style="font-weight:600;color:#0f766e;border-color:#99f6e4;background:#ffffff;" title="Switch Active RBAC Role">
+            <option value="ADMIN">🛡️ National Admin (Full Access)</option>
+            <option value="HEALTH_OFFICER">📋 District Health Officer (Allocations & Alerts)</option>
+            <option value="PHC_OPERATOR">💊 Hospital Pharmacist (Dispensing & Stock)</option>
+            <option value="ML_ENGINEER">🧠 ML Governance Engineer (AI & Federation)</option>
+            <option value="VIEWER">👁️ Public Observer (Read-Only)</option>
+          </select>
+
+          <!-- New Transaction Modal Trigger -->
+          <button class="btn btn-primary btn-sm" id="btnOpenNewTxModal">
+            <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 4v16m8-8H4"/></svg>
+            <span>Post Transaction</span>
+          </button>
+
+          <!-- Sign Out / Switch Identity Button -->
+          <button class="btn btn-outline btn-sm" id="btnSignOut" onclick="App.handleSignOut()" title="Sign out and return to Sovereign Login Page" style="border-color:#fecaca;color:#b91c1c;background:#fff5f5;">
+            <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/></svg>
+            <span>Sign Out</span>
+          </button>
+        </div>
+      </header>
+
+      <!-- LIVE METRICS TICKER STRIP -->
+      <section class="metrics-strip">
+        <div class="ticker-card">
+          <div class="ticker-icon" style="background:#eff6ff;color:#1d4ed8;">🏥</div>
+          <div class="ticker-info">
+            <span class="ticker-label">Reporting</span>
+            <span class="ticker-val" id="tickerReportingFacs">21/21</span>
+          </div>
+        </div>
+
+        <div class="ticker-card">
+          <div class="ticker-icon" style="background:#ecfdf5;color:#047857;">🛏️</div>
+          <div class="ticker-info">
+            <span class="ticker-label">Bed Occupancy</span>
+            <span class="ticker-val" id="tickerBedOccupancy">--%</span>
+          </div>
+        </div>
+
+        <div class="ticker-card">
+          <div class="ticker-icon" style="background:#fef2f2;color:#dc2626;">⚠️</div>
+          <div class="ticker-info">
+            <span class="ticker-label">ICU Stress</span>
+            <span class="ticker-val text-danger" id="tickerIcuPressure">--%</span>
+          </div>
+        </div>
+
+        <div class="ticker-card">
+          <div class="ticker-icon" style="background:#faf5ff;color:#7e22ce;">🩺</div>
+          <div class="ticker-info">
+            <span class="ticker-label">Staff Coverage</span>
+            <span class="ticker-val" id="tickerWorkforce">--%</span>
+          </div>
+        </div>
+
+        <div class="ticker-card">
+          <div class="ticker-icon" style="background:#fff7ed;color:#c2410c;">💊</div>
+          <div class="ticker-info">
+            <span class="ticker-label">Stockout Risks</span>
+            <span class="ticker-val text-warning" id="tickerCriticalStockouts">0</span>
+          </div>
+        </div>
+
+        <div class="ticker-card">
+          <div class="ticker-icon" style="background:#fef2f2;color:#dc2626;">🚨</div>
+          <div class="ticker-info">
+            <span class="ticker-label">Emergency Alerts</span>
+            <span class="ticker-val text-danger" id="tickerEmergencyAlerts">0</span>
+          </div>
+        </div>
+
+        <div class="ticker-card">
+          <div class="ticker-icon" style="background:#f0fdfa;color:#0f766e;">⚖️</div>
+          <div class="ticker-info">
+            <span class="ticker-label">Pending AI Recs</span>
+            <span class="ticker-val text-cyan" id="tickerPendingApprovals">0</span>
+          </div>
+        </div>
+
+        <div class="ticker-card">
+          <div class="ticker-icon" style="background:#ecfdf5;color:#047857;">📊</div>
+          <div class="ticker-info">
+            <span class="ticker-label">Data Quality</span>
+            <span class="ticker-val" id="tickerDataQuality">92.4%</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= VIEW 1: NATIONAL GIS MAP ================= -->
+      <section class="view-content active" id="view-command">
+        <div class="cc-brief"><h1 id="ccHead">Loading today's briefing...</h1><p id="ccSub"></p></div>
+        <div class="cc-kpis" id="ccKpis"></div>
+        <div class="cc-grid">
+          <div class="cc-card cc-map"><h2>Facility stress: stock, ICU and connectivity combined</h2>
+            <svg class="cc-hexmap" id="ccMap" viewBox="0 0 600 260" role="img" aria-label="Hexagon map of facilities coloured by stress level"></svg>
+            <div class="cc-legend"><span><i style="background:var(--s0)"></i>Stable</span><span><i style="background:var(--s1)"></i>Watch</span><span><i style="background:var(--s2)"></i>Low stock</span><span><i style="background:var(--s3)"></i>Critical</span><span><i style="background:var(--s4)"></i>Emergency</span></div>
+            <div id="ccRead">Select a facility to see its status.</div></div>
+          <div class="cc-card"><h2>Recommended actions</h2><div id="ccRecs"></div></div>
+          <div class="cc-card cc-wide"><h2>Days of stock left (lowest first)</h2><div id="ccFc"></div></div>
+        </div>
+      </section>
+
+      <section class="view-content" id="view-national-map">
+        <div class="grid-map-layout">
+          <!-- Canvas Map Container -->
+          <div class="map-panel">
+            <div class="map-toolbar">
+              <span style="font-size:11px;font-weight:700;color:#94a3b8;align-self:center;margin-right:4px;">LAYERS:</span>
+              <button class="map-layer-btn active" data-layer="ALL">All Nodes</button>
+              <button class="map-layer-btn" data-layer="HOSPITALS">Hospitals</button>
+              <button class="map-layer-btn" data-layer="WAREHOUSES">Warehouses</button>
+              <button class="map-layer-btn" data-layer="RISK_STOCK">Stockout Risk</button>
+              <button class="map-layer-btn" data-layer="ICU_STRESS">ICU Pressure</button>
+            </div>
+
+            <canvas id="nationalMapCanvas"></canvas>
+
+            <div class="map-legend">
+              <div class="legend-item"><span class="legend-dot" style="background:#10b981;"></span> Normal</div>
+              <div class="legend-item"><span class="legend-dot" style="background:#f59e0b;"></span> Watch</div>
+              <div class="legend-item"><span class="legend-dot" style="background:#f97316;"></span> Warning</div>
+              <div class="legend-item"><span class="legend-dot" style="background:#ef4444;"></span> Critical</div>
+              <div class="legend-item"><span class="legend-dot" style="background:#a855f7;"></span> Emergency</div>
+              <div class="legend-item"><span style="width:12px;height:12px;border:1px solid #fff;display:inline-block;transform:rotate(45deg);margin-right:4px;"></span> Depot</div>
+            </div>
+          </div>
+
+          <!-- Side Facilities Feed & Active Alerts -->
+          <div style="display:flex;flex-direction:column;gap:16px;height:100%;overflow-y:auto;">
+            <div class="card" style="padding:16px;">
+              <div class="card-header" style="margin-bottom:10px;padding-bottom:8px;">
+                <span class="card-title">🚨 Active Grid Incidents</span>
+                <span class="badge badge-danger">Live Stream</span>
+              </div>
+              <div id="sideActiveAlertsList" style="display:flex;flex-direction:column;gap:8px;font-size:12px;">
+                <div style="padding:8px 10px;background:#fef2f2;border-left:3px solid #ef4444;border-radius:4px;">
+                  <div style="font-weight:700;color:#b91c1c;">FAC-001 • ICU Saturation 96.8%</div>
+                  <div style="color:#475569;font-size:11px;">Ventilator pool at maximum capacity. Traumas diverted.</div>
+                </div>
+                <div style="padding:8px 10px;background:#fff7ed;border-left:3px solid #f97316;border-radius:4px;">
+                  <div style="font-weight:700;color:#c2410c;">FAC-010 • Insulin Stockout Imminent</div>
+                  <div style="color:#475569;font-size:11px;">Only 2.1 days remaining. AI transfer awaiting review.</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="card" style="flex:1;overflow:hidden;display:flex;flex-direction:column;">
+              <div class="card-header" style="margin-bottom:8px;">
+                <span class="card-title">Facilities Directory</span>
+                <span style="font-size:11px;color:#94a3b8;">Click node to inspect</span>
+              </div>
+              <div id="mapFacilityList" style="flex:1;overflow-y:auto;display:flex;flex-direction:column;gap:8px;">
+                <!-- Dynamically populated -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= VIEW 2: MEDICINE & FEFO ================= -->
+      <section class="view-content" id="view-weather"><div class="ins">
+        <h1>Supply Weather</h1><p class="ins-sub">Stock-out risk shown like a weather radar. Drag the slider or press play to watch shortage fronts build over the next 30 days.</p>
+        <div class="ins-grid">
+          <div class="ins-card ins-dark"><div class="ins-bar"><button class="ins-btn" id="wxPlay">Play forecast</button><input type="range" id="wxDay" min="0" max="30" value="0" aria-label="Forecast day"><span id="wxDayLbl">Today</span></div>
+            <svg id="wxMap" class="ins-svg" viewBox="0 0 640 500" role="img" aria-label="Radar map of stock-out risk by facility"></svg>
+            <div class="ins-legend"><span><i style="background:#2f8f83"></i>Clear</span><span><i style="background:#e8a317"></i>Watch</span><span><i style="background:#e4572e"></i>Warning</span><span><i style="background:#b3261e"></i>Storm</span></div></div>
+          <div class="ins-card"><h2>Outlook</h2><div id="wxOutlook"></div><h2>Storm warnings</h2><div id="wxWarn"></div></div>
+        </div></div></section>
+
+      <section class="view-content" id="view-cascade"><div class="ins">
+        <h1>Cascade Simulator</h1><p class="ins-sub">Click any facility to take it offline and watch the shortage spread down the supply chain. Then apply a backup route and see how many people it protects.</p>
+        <div class="ins-grid">
+          <div class="ins-card ins-dark"><div class="ins-bar"><button class="ins-btn" id="casPlay">Play cascade</button><input type="range" id="casDay" min="0" max="60" value="0" aria-label="Days after failure"><span id="casDayLbl">Today</span><button class="ins-btn ghost" id="casBackup">Apply backup route</button></div>
+            <svg id="casSvg" class="ins-svg" viewBox="0 0 640 340" role="img" aria-label="Supply chain graph showing how a failure spreads"></svg>
+            <div class="ins-legend"><span><i style="background:#7f1d1d"></i>Failed</span><span><i style="background:#e4572e"></i>Out of stock</span><span><i style="background:#e8a317"></i>Dry within 7 days</span><span><i style="background:#2f8f83"></i>Supplied</span></div></div>
+          <div class="ins-card" id="casInfo"><div class="ins-empty">Loading...</div></div>
+        </div></div></section>
+
+      <section class="view-content" id="view-ledger"><div class="ins">
+        <h1>Impact Ledger</h1><p class="ins-sub">What each approved action prevented, compared with doing nothing. Estimates use the stock forecast at the time of the recommendation over a 30-day horizon.</p>
+        <div class="ins-kpis" id="ledKpis"></div>
+        <div class="ins-grid">
+          <div class="ins-card"><h2>Approved actions</h2><div id="ledList"><div class="ins-empty">Loading...</div></div></div>
+          <div class="ins-card"><h2>Waiting for approval</h2><div id="ledPend"></div></div>
+        </div></div></section>
+
+      <section class="view-content" id="view-inventory">
+        <!-- FEFO Expiry Risk Tracker -->
+        <div class="card" style="margin-bottom:20px;">
+          <div class="card-header">
+            <span class="card-title">⏳ First Expiry First Out (FEFO) Expiry Risk Sentinel</span>
+            <span class="badge badge-fefo-urgent">Threshold: &le; 35 Days</span>
+          </div>
+          <div class="table-container">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Product</th>
+                  <th>Facility</th>
+                  <th>Batch Lot</th>
+                  <th>Quantity</th>
+                  <th>Expiry Date</th>
+                  <th>Shelf Life Remaining</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody id="fefoTableBody">
+                <!-- Dynamically loaded -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Master Inventory & Days-of-Stock Table -->
+        <div class="card">
+          <div class="card-header">
+            <span class="card-title">📦 Essential Medicine Inventory & Velocity</span>
+            <div class="card-actions">
+              <span style="font-size:12px;color:#94a3b8;">Formula: Days = Usable / Daily Burn Rate</span>
+            </div>
+          </div>
+          <div class="table-container">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Product Details</th>
+                  <th>Facility</th>
+                  <th>Usable Stock</th>
+                  <th>Burn Rate</th>
+                  <th>Days of Stock & Reorder Point</th>
+                  <th>Risk Tier</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody id="inventoryTableBody">
+                <!-- Dynamically loaded -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= VIEW 3: BEDS & WORKFORCE ================= -->
+      <section class="view-content" id="view-capacity">
+        <div class="grid-2" style="margin-bottom:20px;">
+          <!-- Bed Capacity Table -->
+          <div class="card">
+            <div class="card-header">
+              <span class="card-title">🛏️ Hospital & CHC Bed Utilization</span>
+              <span style="font-size:11px;color:#94a3b8;">Section 12: Staffed Operational Capacity</span>
+            </div>
+            <div class="table-container">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>Facility</th>
+                    <th>Occupied / Total</th>
+                    <th>Occupancy %</th>
+                    <th>ICU Stress</th>
+                    <th>Oxygen Beds</th>
+                    <th>Staffed Capacity</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody id="capacityTableBody">
+                  <!-- Dynamically loaded -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- Workforce Attendance Table -->
+          <div class="card">
+            <div class="card-header">
+              <span class="card-title">🩺 Medical Personnel Shift Coverage</span>
+              <span style="font-size:11px;color:#94a3b8;">Section 14: Scheduled vs Present</span>
+            </div>
+            <div class="table-container">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>Facility</th>
+                    <th>Clinical Role</th>
+                    <th>Sched.</th>
+                    <th>Present</th>
+                    <th>Shortage</th>
+                    <th>Coverage %</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody id="workforceTableBody">
+                  <!-- Dynamically loaded -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= VIEW 4: PREDICTIVE AI & EARLY WARNING ================= -->
+      <section class="view-content" id="view-predictions">
+        <!-- Demand Forecasting Engine -->
+        <div class="card" style="margin-bottom:20px;">
+          <div class="card-header">
+            <div style="display:flex;align-items:center;gap:16px;">
+              <span class="card-title">📈 AI Demand Forecasting & Stockout Horizon</span>
+              <select id="predFacilitySelect" class="select" onchange="App.loadPredictionsView()" style="font-size:12px;">
+                <option value="FAC-001">Central State Medical College</option>
+                <option value="FAC-003">Metro Civil District Hospital</option>
+                <option value="FAC-010">Highland Rural PHC - Pine Valley</option>
+                <option value="FAC-020">Delta Island CHC - Mangrove</option>
+              </select>
+              <select id="predProductSelect" class="select" onchange="App.loadPredictionsView()" style="font-size:12px;">
+                <!-- Populated dynamically -->
+              </select>
+            </div>
+            <div style="font-size:12px;color:#94a3b8;">
+              Velocity: <b id="forecastBurnRate" style="color:#60a5fa;">--</b> | Stockout: <b id="forecastStockoutDate" style="color:#ef4444;">--</b>
+            </div>
+          </div>
+
+          <div id="demandForecastChart" style="width:100%;height:280px;"></div>
+          <div style="font-size:11px;color:#64748b;margin-top:8px;display:flex;justify-content:space-between;">
+            <span id="forecastModelMeta">Model: MOD-DEMAND-01 (v2.4-FED)</span>
+            <span>Uncertainty: 95% Bayesian Confidence Band</span>
+          </div>
+        </div>
+
+        <div class="grid-2">
+          <!-- Stockout Hazard Matrix -->
+          <div class="card">
+            <div class="card-header">
+              <span class="card-title">🎯 Stockout Probability Hazard Matrix</span>
+              <span style="font-size:11px;color:#94a3b8;">Multi-Horizon Calibrated AI</span>
+            </div>
+            <div class="table-container">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>Product & Facility</th>
+                    <th>Current Stock</th>
+                    <th>Days (Lead Time)</th>
+                    <th>P(7d)</th>
+                    <th>P(14d)</th>
+                    <th>Risk</th>
+                    <th>Primary Driver</th>
+                  </tr>
+                </thead>
+                <tbody id="stockoutTableBody">
+                  <!-- Dynamically loaded -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- Epidemiological Anomaly Sentinel -->
+          <div class="card">
+            <div class="card-header">
+              <span class="card-title">🦠 Syndromic Anomaly & Surge Sentinel</span>
+              <span class="badge badge-danger">Section 30 Correlation</span>
+            </div>
+            <div id="anomaliesList">
+              <!-- Dynamically loaded -->
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= VIEW 5: AI RECOMMENDATIONS & HUMAN APPROVAL ================= -->
+      <section class="view-content" id="view-recommendations">
+        <div class="card" style="margin-bottom:16px;">
+          <div class="card-header">
+            <span class="card-title">🤖 Explainable AI Cross-Facility Redistribution Pipeline</span>
+            <div class="card-actions">
+              <button class="btn btn-outline btn-sm" onclick="Api.post('/recommendations/generate').then(() => App.loadRecommendationsView())">
+                🔄 Re-optimize Network
+              </button>
+            </div>
+          </div>
+          <p style="font-size:12px;color:#94a3b8;margin-bottom:12px;">
+            AI algorithm pairs deficit facilities (Days of Stock &lt; 5d) with surplus regional depots, respecting cold-chain requirements, distance, and source reserve buffers. All consequential actions require authorized Human-in-the-Loop officer approval.
+          </p>
+        </div>
+
+        <div id="recommendationsList">
+          <!-- Dynamically populated recommendation cards -->
+        </div>
+      </section>
+
+      <!-- ================= VIEW 6: WHAT-IF SIMULATOR ================= -->
+      <section class="view-content" id="view-simulator">
+        <div class="grid-2">
+          <!-- Scenario Controls -->
+          <div class="card">
+            <div class="card-header">
+              <span class="card-title">⚙️ Emergency Scenario Parameters</span>
+              <button class="btn btn-outline btn-sm" id="btnResetSimulation">Reset Defaults</button>
+            </div>
+
+            <div class="form-group">
+              <div style="display:flex;justify-content:space-between;margin-bottom:6px;">
+                <label class="form-label" for="simSurgeSlider">Epidemic Disease Incidence Surge</label>
+                <b id="simSurgeVal" style="color:#60a5fa;">+30%</b>
+              </div>
+              <input type="range" class="range-slider" id="simSurgeSlider" min="0" max="100" value="30">
+            </div>
+
+            <div class="form-group">
+              <div style="display:flex;justify-content:space-between;margin-bottom:6px;">
+                <label class="form-label" for="simSupplyCutSlider">Supply Chain / Transport Disruption</label>
+                <b id="simSupplyCutVal" style="color:#f59e0b;">-20%</b>
+              </div>
+              <input type="range" class="range-slider" id="simSupplyCutSlider" min="0" max="60" value="20">
+            </div>
+
+            <div class="form-group">
+              <div style="display:flex;justify-content:space-between;margin-bottom:6px;">
+                <label class="form-label" for="simStaffLossSlider">Workforce Absenteeism / Strike</label>
+                <b id="simStaffLossVal" style="color:#f87171;">-15%</b>
+              </div>
+              <input type="range" class="range-slider" id="simStaffLossSlider" min="0" max="40" value="15">
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="simWarehouseSelect">Simulate Major Depot Catastrophic Failure</label>
+              <select class="select" id="simWarehouseSelect" style="width:100%;">
+                <option value="">None (All Warehouses Fully Operational)</option>
+                <option value="FAC-002">National Emergency Medical Depot #1 (NEMD-1)</option>
+                <option value="FAC-016">Port Medical Logistics Depot (PMLD)</option>
+              </select>
+            </div>
+
+            <button class="btn btn-primary" id="btnRunSimulation" style="width:100%;margin-top:10px;">
+              Simulate Emergency Scenario
+            </button>
+          </div>
+
+          <!-- Impact Projections & AI Countermeasures -->
+          <div class="card">
+            <div class="card-header">
+              <span class="card-title">⚠️ Projected Grid Impact & Time-to-Failure</span>
+            </div>
+
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px;">
+              <div class="card" style="padding:12px;background:#ffffff;border:1px solid #e2e8f0;text-align:center;">
+                <span class="ticker-label">Time to Critical Failure</span>
+                <div id="simTimeToCritical" class="ticker-val text-danger" style="font-size:24px;margin-top:4px;">-- Days</div>
+              </div>
+              <div class="card" style="padding:12px;background:#ffffff;border:1px solid #e2e8f0;text-align:center;">
+                <span class="ticker-label">Facilities in Failure State</span>
+                <div id="simFacsAtRisk" class="ticker-val text-warning" style="font-size:24px;margin-top:4px;">--</div>
+              </div>
+            </div>
+
+            <div style="display:flex;justify-content:space-around;margin-bottom:16px;">
+              <div id="simBedGauge"></div>
+              <div id="simIcuGauge"></div>
+            </div>
+
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px;font-size:12px;">
+              <div style="background:#f8fafc;border:1px solid #e2e8f0;padding:8px 12px;border-radius:6px;">
+                Bed Deficit: <b id="simBedDeficit" style="color:#dc2626;">--</b>
+              </div>
+              <div style="background:#f8fafc;border:1px solid #e2e8f0;padding:8px 12px;border-radius:6px;">
+                Oxygen Shortage: <b id="simO2Shortage" style="color:#0284c7;">--</b>
+              </div>
+            </div>
+
+            <div>
+              <div style="font-weight:700;font-size:12px;color:#94a3b8;margin-bottom:8px;text-transform:uppercase;">AI Preemptive Countermeasures:</div>
+              <ul id="simCountermeasuresList" style="list-style:none;padding:0;">
+                <!-- Populated dynamically -->
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= VIEW 7: FEDERATED LEARNING ================= -->
+      <section class="view-content" id="view-federated">
+        <div class="card" style="margin-bottom:20px;">
+          <div class="card-header">
+            <div>
+              <span class="card-title">🌐 Privacy-Preserving Federated Intelligence Coordinator</span>
+              <div style="font-size:12px;color:#94a3b8;margin-top:2px;">
+                Section 39-41: Multi-Country Sovereign Coordination • No Raw Patient Data Uploaded
+              </div>
+            </div>
+            <div class="card-actions">
+              <button class="btn btn-primary btn-sm" id="btnRunFedRound">
+                Trigger Federated Aggregation Round
+              </button>
+            </div>
+          </div>
+
+          <div style="display:grid;grid-template-columns:repeat(4, 1fr);gap:14px;margin-bottom:16px;">
+            <div class="ticker-card">
+              <div class="ticker-icon" style="background:rgba(59,130,246,0.2);color:#60a5fa;">🌍</div>
+              <div class="ticker-info">
+                <span class="ticker-label">Nodes</span>
+                <span class="ticker-val" id="fedNodeCount">4 Sovereign Nodes</span>
+              </div>
+            </div>
+            <div class="ticker-card">
+              <div class="ticker-icon" style="background:rgba(16,185,129,0.2);color:#34d399;">🗃️</div>
+              <div class="ticker-info">
+                <span class="ticker-label">Local Training Data</span>
+                <span class="ticker-val" id="fedSampleCount">431k Records</span>
+              </div>
+            </div>
+            <div class="ticker-card">
+              <div class="ticker-icon" style="background:rgba(168,85,247,0.2);color:#c084fc;">📉</div>
+              <div class="ticker-info">
+                <span class="ticker-label">Global Loss</span>
+                <span class="ticker-val" id="fedAvgLoss">0.051</span>
+              </div>
+            </div>
+            <div class="ticker-card">
+              <div class="ticker-icon" style="background:rgba(6,182,212,0.2);color:#22d3ee;">🔒</div>
+              <div class="ticker-info">
+                <span class="ticker-label">Privacy Budget</span>
+                <span class="ticker-val">ε = 0.65</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="grid-2">
+            <div>
+              <div style="font-weight:700;font-size:13px;color:#0f172a;margin-bottom:10px;">Participating Sovereign Country Nodes</div>
+              <div id="fedNodesList" style="display:flex;flex-direction:column;gap:10px;">
+                <!-- Dynamically loaded nodes -->
+              </div>
+            </div>
+            <div>
+              <div style="font-weight:700;font-size:13px;color:#0f172a;margin-bottom:10px;">Loss Convergence Curve</div>
+              <div class="card" style="padding:16px;background:#ffffff;border:1px solid #e2e8f0;">
+                <div id="fedLossChart"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Global Model Registry Table -->
+        <div class="card">
+          <div class="card-header">
+            <span class="card-title">📚 International Global Model Registry</span>
+          </div>
+          <div class="table-container">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Model Specification</th>
+                  <th>Current Version</th>
+                  <th>Accuracy</th>
+                  <th>WAPE</th>
+                  <th>Privacy Epsilon</th>
+                  <th>Round</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody id="fedModelsTableBody">
+                <!-- Dynamically loaded -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= VIEW 8: OFFLINE PHC FIELD APP ================= -->
+      <section class="view-content" id="view-offline">
+        <div class="grid-2">
+          <!-- Station Simulation Control -->
+          <div class="card">
+            <div class="card-header">
+              <span class="card-title">📡 Field Station Connection Simulator</span>
+              <button class="btn btn-outline btn-sm" id="btnToggleOfflineMode">Toggle Connectivity</button>
+            </div>
+            <p style="font-size:12px;color:#94a3b8;margin-bottom:16px;">
+              Section 16: Primary Health Centres with degraded telecom access record medicine dispensing and patient attendance locally in encrypted storage. When connectivity is restored, idempotent batch sync transmits queued events without data loss.
+            </p>
+
+            <form id="offlineTxForm">
+              <div class="form-group">
+                <label class="form-label" for="offlineFacilitySelect">Select Local Facility</label>
+                <select class="select" id="offlineFacilitySelect" style="width:100%;">
+                  <!-- Dynamically populated -->
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="offlineProductSelect">Product</label>
+                <select class="select" id="offlineProductSelect" style="width:100%;">
+                  <!-- Dynamically populated -->
+                </select>
+              </div>
+
+              <div class="grid-2">
+                <div class="form-group">
+                  <label class="form-label" for="offlineTxTypeSelect">Action Type</label>
+                  <select class="select" id="offlineTxTypeSelect" style="width:100%;">
+                    <option value="DISPENSING">Dispensing to Patient</option>
+                    <option value="RECEIPT">Local Stock Receipt</option>
+                    <option value="LOSS">Damage / Wastage</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label class="form-label" for="offlineQtyInput">Quantity</label>
+                  <input type="number" class="input" id="offlineQtyInput" value="1" min="1" max="1000" style="width:100%;">
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="offlineNotesInput">Clinical Prescription / Notes</label>
+                <input type="text" class="input" id="offlineNotesInput" placeholder="OPD Patient ID or field clinic reference" style="width:100%;">
+              </div>
+
+              <button type="submit" class="btn btn-primary" style="width:100%;">Queue Transaction</button>
+            </form>
+          </div>
+
+          <!-- Offline Queue Table -->
+          <div class="card">
+            <div class="card-header">
+              <span class="card-title">📥 Local Action Queue</span>
+              <button class="btn btn-success btn-sm" id="btnSyncOfflineQueue">Sync to National Grid</button>
+            </div>
+            <div class="table-container">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>Action ID</th>
+                    <th>Type</th>
+                    <th>Resource</th>
+                    <th>Quantity</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody id="offlineQueueTableBody">
+                  <!-- Dynamically populated -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= VIEW 9: SOVEREIGN AUDIT LEDGER ================= -->
+      <section class="view-content" id="view-audit">
+        <div class="card">
+          <div class="card-header">
+            <span class="card-title">🔐 Cryptographic Sovereign Audit Trail</span>
+            <span style="font-size:11px;color:#94a3b8;">Section 45: SHA-256 Tamper-Evident Chaining</span>
+          </div>
+          <div class="table-container">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Timestamp</th>
+                  <th>Actor / Role</th>
+                  <th>Action</th>
+                  <th>Description</th>
+                  <th>Tamper Hash</th>
+                </tr>
+              </thead>
+              <tbody id="auditTableBody">
+                <!-- Dynamically loaded -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- SLIDE-OVER DRAWER: FACILITY QUICK INSPECTOR -->
+  <div id="facilityInspectorDrawer" class="modal-overlay">
+    <div class="modal-dialog" style="max-width:700px;">
+      <div class="modal-header">
+        <div>
+          <h3 id="inspFacName" style="color:#0f172a;font-size:16px;">Facility Name</h3>
+          <span id="inspFacType" style="font-size:12px;color:#64748b;">Type • District</span>
+        </div>
+        <button class="btn btn-outline btn-sm" id="btnCloseFacilityDrawer">✕</button>
+      </div>
+
+      <div class="modal-body">
+        <div style="display:flex;gap:12px;margin-bottom:16px;">
+          <div class="badge badge-normal" id="inspFacStatus">Status: ACTIVE</div>
+          <div class="badge badge-normal">Data Quality: <span id="inspDqScore">--</span></div>
+          <div class="badge badge-gray">Catchment Pop: <span id="inspCatchment">--</span></div>
+        </div>
+
+        <div style="font-weight:700;font-size:13px;color:#0f172a;margin-bottom:8px;">Live Inpatient & ICU Capacity</div>
+        <div style="display:grid;grid-template-columns:repeat(4, 1fr);gap:10px;margin-bottom:16px;font-size:12px;">
+          <div style="background:#f8fafc;border:1px solid #e2e8f0;padding:8px;border-radius:6px;">
+            Total Beds: <b id="inspBedsOccupied" style="color:#0284c7;">--</b>
+          </div>
+          <div style="background:#f8fafc;border:1px solid #e2e8f0;padding:8px;border-radius:6px;">
+            ICU Stress: <b id="inspIcuOccupied" style="color:#dc2626;">--</b>
+          </div>
+          <div style="background:#f8fafc;border:1px solid #e2e8f0;padding:8px;border-radius:6px;">
+            Oxygen: <b id="inspOxygenBeds" style="color:#0d9488;">--</b>
+          </div>
+          <div style="background:#f8fafc;border:1px solid #e2e8f0;padding:8px;border-radius:6px;">
+            Ventilators: <b id="inspVentilators" style="color:#0f172a;">--</b>
+          </div>
+        </div>
+
+        <div style="font-weight:700;font-size:13px;color:#0f172a;margin-bottom:8px;">Stock Batches (FEFO Sorting)</div>
+        <div class="table-container" style="margin-bottom:16px;">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Medicine</th>
+                <th>Batch</th>
+                <th>Stock</th>
+                <th>Expiry</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody id="inspBatchesTableBody"></tbody>
+          </table>
+        </div>
+
+        <div style="font-weight:700;font-size:13px;color:#0f172a;margin-bottom:8px;">Active Facility Alerts</div>
+        <div id="inspAlertsList"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: NEW INVENTORY TRANSACTION -->
+  <div id="modalTransaction" class="modal-overlay">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <h3 style="color:#0f172a;font-size:16px;">Post Operational Inventory Transaction</h3>
+        <button class="btn btn-outline btn-sm" id="btnCloseTxModal">✕</button>
+      </div>
+      <form id="formNewTransaction">
+        <div class="modal-body">
+          <div class="form-group">
+            <label class="form-label" for="txFacilitySelect">Facility</label>
+            <select class="select" id="txFacilitySelect" style="width:100%;"></select>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="txProductSelect">Medical Product</label>
+            <select class="select" id="txProductSelect" style="width:100%;"></select>
+          </div>
+          <div class="grid-2">
+            <div class="form-group">
+              <label class="form-label" for="txTypeSelect">Transaction Type</label>
+              <select class="select" id="txTypeSelect" style="width:100%;">
+                <option value="DISPENSING">Dispensing (Clinical)</option>
+                <option value="RECEIPT">Stock Receipt (GRN)</option>
+                <option value="TRANSFER">Transfer to Facility</option>
+                <option value="ADJUSTMENT">Physical Count Adjustment</option>
+                <option value="LOSS">Loss / Spoilage</option>
+                <option value="EXPIRY">Expired Write-Off</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="txQtyInput">Quantity</label>
+              <input type="number" class="input" id="txQtyInput" value="10" min="1" style="width:100%;" required>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="txRefInput">Reference Voucher / Rx ID</label>
+            <input type="text" class="input" id="txRefInput" placeholder="e.g. GRN-2026-904" style="width:100%;">
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="txNotesInput">Clinical / Operational Notes</label>
+            <input type="text" class="input" id="txNotesInput" placeholder="Reason for transaction" style="width:100%;">
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-primary">Commit Transaction</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- TOAST NOTIFICATIONS CONTAINER -->
+  <div id="toastContainer" class="toast-container"></div>
+
+  <!-- Frontend JavaScript Modules -->
+  <script src="js/api.js"></script>
+  <script src="js/state.js"></script>
+  <script src="js/charts.js"></script>
+  <script src="js/map.js"></script>
+  <script src="js/simulator.js"></script>
+  <script src="js/federated.js"></script>
+  <script src="js/offline_app.js"></script>
+  <script src="js/command.js"></script>
+  <script src="js/insights.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
