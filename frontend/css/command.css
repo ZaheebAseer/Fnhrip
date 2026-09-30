@@ -1,0 +1,48 @@
+/* Command Centre view (new design) */
+#view-command{--c-ink:#12262b;--c-mute:#5b7076;--c-line:#d5e0dd;--c-teal:#0b7a75;--c-map:#0f2a2e;--s0:#2f6f6a;--s1:#4f9a8f;--s2:#e8a317;--s3:#e4572e;--s4:#b3261e;font-family:'Outfit',system-ui,sans-serif;color:var(--c-ink);padding:6px 4px 24px}
+#view-command .cc-brief{max-width:64ch;padding:4px 0 20px}
+#view-command .cc-brief h1{font-size:clamp(24px,3.2vw,38px);line-height:1.12;margin:0 0 10px;font-weight:800;letter-spacing:-.025em}
+#view-command .cc-brief h1 b{border-bottom:3px solid var(--s3)}
+#view-command .cc-brief p{margin:0;color:var(--c-mute);font-size:15px}
+#view-command .cc-kpis{display:flex;flex-wrap:wrap;margin-bottom:20px;border-top:1px solid var(--c-line);border-bottom:1px solid var(--c-line);background:#fff}
+#view-command .cc-kpi{flex:1 1 150px;padding:12px 16px}
+#view-command .cc-kpi+.cc-kpi{border-left:1px solid var(--c-line)}
+#view-command .cc-kpi small{display:block;color:var(--c-mute);font-size:12.5px}
+#view-command .cc-kpi strong{font-size:26px;font-weight:600;letter-spacing:-.02em}
+#view-command .cc-kpi em{display:block;font-style:normal;font-size:12.5px;color:var(--s3)}
+#view-command .cc-kpi em.ok{color:var(--c-teal)}
+#view-command .cc-grid{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:20px}
+#view-command .cc-card{background:#fff;border:1px solid var(--c-line);border-radius:14px;padding:16px}
+#view-command .cc-card h2{font-size:15px;margin:0 0 12px;font-weight:600}
+#view-command .cc-map{background:var(--c-map);border-color:var(--c-map);color:#e6f0ee}
+#view-command .cc-map h2{color:#e6f0ee}
+#view-command svg.cc-hexmap{width:100%;height:auto;display:block}
+#view-command .hex{stroke:#0f2a2e;stroke-width:2;cursor:pointer}
+#view-command .hex:hover,#view-command .hex.sel{stroke:#fff}
+#view-command .s0{fill:var(--s0)}#view-command .s1{fill:var(--s1)}#view-command .s2{fill:var(--s2)}#view-command .s3{fill:var(--s3)}#view-command .s4{fill:var(--s4)}
+#view-command .cc-arc{fill:none;stroke:#f6f1d8;stroke-width:2.2;stroke-dasharray:6 6;animation:ccflow 1.2s linear infinite}
+@keyframes ccflow{to{stroke-dashoffset:-24}}
+#view-command .cc-pulse{fill:none;stroke:var(--s4);stroke-width:2;transform-box:fill-box;transform-origin:center;animation:ccpl 2s ease-out infinite}
+@keyframes ccpl{from{transform:scale(.6);opacity:1}to{transform:scale(1.6);opacity:0}}
+@media (prefers-reduced-motion:reduce){#view-command .cc-arc,#view-command .cc-pulse{animation:none}}
+#view-command .cc-legend{display:flex;gap:14px;flex-wrap:wrap;font-size:12px;color:#9db6b8;margin-top:6px}
+#view-command .cc-legend i{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:5px}
+#view-command #ccRead{font-size:13px;color:#cfe3e1;min-height:20px;margin-top:8px}
+#view-command .cc-rec{padding:12px 0;border-top:1px solid var(--c-line)}
+#view-command .cc-rec:first-of-type{border-top:0;padding-top:0}
+#view-command .cc-rec p{margin:0 0 4px;font-size:14px}
+#view-command .cc-why{display:flex;gap:6px;flex-wrap:wrap;font-size:12px;color:var(--c-mute);margin:6px 0 8px}
+#view-command .cc-why span{border:1px solid var(--c-line);border-radius:6px;padding:1px 7px}
+#view-command .cc-conf{height:5px;background:var(--c-line);border-radius:3px;margin:2px 0 10px;overflow:hidden}
+#view-command .cc-conf div{height:100%;background:var(--c-teal)}
+#view-command .cc-act{display:flex;gap:8px;align-items:center}
+#view-command .cc-btn{border:1px solid var(--c-teal);background:var(--c-teal);color:#fff;border-radius:8px;padding:6px 14px;font:600 13px 'Outfit',sans-serif;cursor:pointer}
+#view-command .cc-btn.ghost{background:none;color:var(--c-ink);border-color:var(--c-line);font-weight:400}
+#view-command .cc-done{font-size:13px;color:var(--c-teal);font-weight:600}
+#view-command .cc-wide{grid-column:1/-1}
+#view-command .cc-fc{display:grid;grid-template-columns:minmax(120px,220px) 1fr 56px;gap:10px;align-items:center;font-size:13.5px;padding:6px 0}
+#view-command .cc-bar{height:8px;background:var(--c-line);border-radius:4px;overflow:hidden}
+#view-command .cc-bar div{height:100%;border-radius:4px}
+#view-command .cc-fc b{text-align:right;font-weight:600}
+#view-command .cc-empty{color:var(--c-mute);font-size:14px}
+@media (max-width:860px){#view-command .cc-grid{grid-template-columns:1fr}}

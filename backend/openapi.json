@@ -1,0 +1,103 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Federated National Health Resource Intelligence Platform (FNHRIP) API",
+    "description": "Authoritative REST API specification for national health resource visibility, inventory FEFO tracking, capacity planning, predictive AI, decision support, and federated learning coordination.",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:5000",
+      "description": "Local Development / Sovereign Node Gateway"
+    }
+  ],
+  "paths": {
+    "/api/v1/health": {
+      "get": {
+        "summary": "Platform Health Status",
+        "responses": {
+          "200": { "description": "System operational and connected to sovereign node" }
+        }
+      }
+    },
+    "/api/v1/national-metrics": {
+      "get": {
+        "summary": "Executive Resource Metrics",
+        "description": "Provides macro-level indicators: facility reporting percentage, bed occupancy rate, ICU saturation, staff coverage, and emergency alert tallies.",
+        "responses": {
+          "200": { "description": "National summary indicators" }
+        }
+      }
+    },
+    "/api/v1/hierarchy": {
+      "get": {
+        "summary": "Geographic Hierarchy",
+        "description": "Returns full geographic structure: Regions -> Districts -> Facilities",
+        "responses": { "200": { "description": "Administrative hierarchy array" } }
+      }
+    },
+    "/api/v1/facilities": {
+      "get": {
+        "summary": "Facility Directory",
+        "parameters": [
+          { "name": "district_id", "in": "query", "schema": { "type": "string" } },
+          { "name": "type", "in": "query", "schema": { "type": "string" } },
+          { "name": "status", "in": "query", "schema": { "type": "string" } }
+        ],
+        "responses": { "200": { "description": "Filtered list of facilities" } }
+      }
+    },
+    "/api/v1/inventory": {
+      "get": {
+        "summary": "Inventory Summary & Days of Stock",
+        "parameters": [
+          { "name": "facility_id", "in": "query", "schema": { "type": "string" } },
+          { "name": "district_id", "in": "query", "schema": { "type": "string" } }
+        ],
+        "responses": { "200": { "description": "Calculated days of stock and risk classifications" } }
+      }
+    },
+    "/api/v1/inventory/transactions": {
+      "post": {
+        "summary": "Record Inventory Transaction",
+        "description": "Atomic posting of RECEIPT, DISPENSING, TRANSFER, ADJUSTMENT, LOSS, DAMAGE, or EXPIRY.",
+        "responses": { "201": { "description": "Transaction committed" } }
+      }
+    },
+    "/api/v1/forecasts/demand": {
+      "get": {
+        "summary": "Demand Forecasting Engine",
+        "parameters": [
+          { "name": "facility_id", "in": "query", "required": true, "schema": { "type": "string" } },
+          { "name": "product_id", "in": "query", "required": true, "schema": { "type": "string" } },
+          { "name": "horizon_days", "in": "query", "schema": { "type": "integer", "default": 30 } }
+        ],
+        "responses": { "200": { "description": "Time-series projection with 95% confidence intervals" } }
+      }
+    },
+    "/api/v1/recommendations/{rec_id}/approve": {
+      "post": {
+        "summary": "Approve AI Redistribution Recommendation",
+        "description": "Human-in-the-loop action: executes stock transfer and writes to tamper-evident audit ledger.",
+        "parameters": [
+          { "name": "rec_id", "in": "path", "required": true, "schema": { "type": "string" } }
+        ],
+        "responses": { "200": { "description": "Recommendation approved and dispatched" } }
+      }
+    },
+    "/api/v1/simulation/run": {
+      "post": {
+        "summary": "What-If Emergency Scenario Simulator",
+        "description": "Simulates disease outbreaks, warehouse failures, supply disruptions, and staff strikes.",
+        "responses": { "200": { "description": "Simulated impact and recommended countermeasures" } }
+      }
+    },
+    "/api/v1/federated/run-round": {
+      "post": {
+        "summary": "Execute Federated Learning Round",
+        "description": "Triggers local training across sovereign nodes and executes secure parameter aggregation.",
+        "responses": { "200": { "description": "Updated model version and accuracy metrics" } }
+      }
+    }
+  }
+}

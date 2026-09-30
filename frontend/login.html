@@ -1,0 +1,782 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="FNHRIP Sovereign Health Intelligence - Secure Gateway & Identity Authentication">
+  <title>FNHRIP | Sovereign Gateway Authentication</title>
+
+  <!-- Google Fonts: Modern Typography -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/components.css">
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: var(--font-family, 'Outfit', sans-serif);
+      background: #f8fafc;
+      color: #0f172a;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow-x: hidden;
+      padding: 24px;
+    }
+
+    /* Ambient Background Glowing Accents */
+    .bg-glow-1 {
+      position: absolute;
+      top: -10%;
+      left: 15%;
+      width: 500px;
+      height: 500px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(13, 148, 136, 0.08) 0%, rgba(248, 250, 252, 0) 70%);
+      pointer-events: none;
+      filter: blur(40px);
+    }
+
+    .bg-glow-2 {
+      position: absolute;
+      bottom: -15%;
+      right: 15%;
+      width: 600px;
+      height: 600px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(2, 132, 199, 0.08) 0%, rgba(248, 250, 252, 0) 70%);
+      pointer-events: none;
+      filter: blur(50px);
+    }
+
+    .bg-glow-3 {
+      position: absolute;
+      top: 40%;
+      left: 60%;
+      width: 400px;
+      height: 400px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(16, 185, 129, 0.06) 0%, rgba(248, 250, 252, 0) 70%);
+      pointer-events: none;
+      filter: blur(60px);
+    }
+
+    /* Subtle Light Grid Background */
+    .cyber-grid {
+      position: absolute;
+      inset: 0;
+      background-image: 
+        linear-gradient(rgba(15, 23, 42, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(15, 23, 42, 0.03) 1px, transparent 1px);
+      background-size: 36px 36px;
+      pointer-events: none;
+    }
+
+    /* Login Container Layout */
+    .login-wrapper {
+      position: relative;
+      z-index: 10;
+      width: 100%;
+      max-width: 1060px;
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 20px;
+      box-shadow: 0 20px 45px -10px rgba(15, 23, 42, 0.08), 0 0 1px 1px rgba(15, 23, 42, 0.05);
+      overflow: hidden;
+    }
+
+    @media (max-width: 860px) {
+      .login-wrapper {
+        grid-template-columns: 1fr;
+        max-width: 520px;
+      }
+      .quick-roles-panel {
+        border-left: none !important;
+        border-top: 1px solid #e2e8f0;
+      }
+    }
+
+    /* Primary Authentication Form Panel */
+    .auth-main-panel {
+      padding: 44px 40px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .brand-header {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 28px;
+    }
+
+    .brand-icon-box {
+      width: 46px;
+      height: 46px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, #0d9488, #0284c7);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 14px rgba(13, 148, 136, 0.3);
+      color: #fff;
+    }
+
+    .brand-title {
+      font-size: 24px;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: #0f172a;
+      line-height: 1.1;
+    }
+
+    .brand-subtitle {
+      font-size: 11px;
+      font-family: var(--font-mono, monospace);
+      color: #0d9488;
+      letter-spacing: 0.08em;
+      font-weight: 700;
+      text-transform: uppercase;
+      margin-top: 2px;
+    }
+
+    .auth-heading {
+      font-size: 20px;
+      font-weight: 700;
+      color: #0f172a;
+      margin-bottom: 6px;
+    }
+
+    .auth-lead {
+      font-size: 13px;
+      color: #475569;
+      margin-bottom: 28px;
+      line-height: 1.5;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+      position: relative;
+    }
+
+    .form-label {
+      display: block;
+      font-size: 12px;
+      font-weight: 600;
+      color: #334155;
+      margin-bottom: 8px;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .input-wrapper {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+
+    .input-icon {
+      position: absolute;
+      left: 14px;
+      color: #64748b;
+      pointer-events: none;
+      display: flex;
+      align-items: center;
+    }
+
+    .auth-input {
+      width: 100%;
+      background: #ffffff;
+      border: 1px solid #cbd5e1;
+      border-radius: 10px;
+      padding: 13px 14px 13px 44px;
+      font-size: 14px;
+      color: #0f172a;
+      font-family: inherit;
+      outline: none;
+      transition: all 0.2s ease;
+    }
+
+    .auth-input:focus {
+      border-color: #0d9488;
+      box-shadow: 0 0 0 3px rgba(13, 148, 136, 0.15);
+      background: #ffffff;
+    }
+
+    .pwd-toggle-btn {
+      position: absolute;
+      right: 12px;
+      background: none;
+      border: none;
+      color: #64748b;
+      cursor: pointer;
+      padding: 4px;
+      display: flex;
+      align-items: center;
+      transition: color 0.2s;
+    }
+
+    .pwd-toggle-btn:hover {
+      color: #0d9488;
+    }
+
+    .form-meta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 26px;
+      font-size: 12px;
+      color: #475569;
+    }
+
+    .remember-check {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+    }
+
+    .remember-check input {
+      accent-color: #0d9488;
+      width: 14px;
+      height: 14px;
+    }
+
+    .security-badge {
+      font-family: var(--font-mono, monospace);
+      font-size: 11px;
+      color: #047857;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .pulse-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #10b981;
+      box-shadow: 0 0 8px #10b981;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.4; transform: scale(0.85); }
+      100% { opacity: 1; transform: scale(1); }
+    }
+
+    .btn-login {
+      width: 100%;
+      padding: 14px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, #0d9488, #0284c7);
+      border: 1px solid #0d9488;
+      color: #ffffff;
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      box-shadow: 0 4px 14px rgba(13, 148, 136, 0.25);
+      transition: all 0.2s ease;
+    }
+
+    .btn-login:hover {
+      background: linear-gradient(135deg, #0f766e, #0369a1);
+      box-shadow: 0 6px 20px rgba(13, 148, 136, 0.35);
+      transform: translateY(-1px);
+    }
+
+    .btn-login:active {
+      transform: translateY(0);
+    }
+
+    .btn-login:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    /* Right Panel: Role Selector & Pre-filled Identities */
+    .quick-roles-panel {
+      background: #f8fafc;
+      border-left: 1px solid #e2e8f0;
+      padding: 38px 30px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .panel-header {
+      margin-bottom: 20px;
+    }
+
+    .panel-title {
+      font-size: 14px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: #0d9488;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .panel-desc {
+      font-size: 12px;
+      color: #64748b;
+      margin-top: 4px;
+    }
+
+    .roles-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      overflow-y: auto;
+      flex: 1;
+    }
+
+    .role-card {
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 10px;
+      padding: 12px 14px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .role-card:hover {
+      background: #f0fdfa;
+      border-color: #99f6e4;
+      transform: translateX(3px);
+    }
+
+    .role-card.active {
+      background: #f0fdfa;
+      border-color: #0d9488;
+      box-shadow: 0 0 0 2px rgba(13, 148, 136, 0.2);
+    }
+
+    .role-icon {
+      font-size: 20px;
+      width: 36px;
+      height: 36px;
+      border-radius: 8px;
+      background: #f1f5f9;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .role-details {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .role-name-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 6px;
+    }
+
+    .role-display-name {
+      font-size: 13px;
+      font-weight: 700;
+      color: #0f172a;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .role-tag {
+      font-family: var(--font-mono, monospace);
+      font-size: 10px;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-weight: 600;
+    }
+
+    .role-scope {
+      font-size: 11px;
+      color: #64748b;
+      margin-top: 2px;
+    }
+
+    .role-creds-hint {
+      font-family: var(--font-mono, monospace);
+      font-size: 10px;
+      color: #0284c7;
+      margin-top: 4px;
+    }
+
+    /* Alert Banner */
+    .alert-banner {
+      display: none;
+      padding: 12px 14px;
+      border-radius: 8px;
+      font-size: 12px;
+      margin-bottom: 20px;
+      animation: fadeIn 0.25s ease;
+    }
+
+    .alert-danger {
+      background: #fef2f2;
+      border: 1px solid #fecaca;
+      color: #b91c1c;
+    }
+
+    .alert-success {
+      background: #ecfdf5;
+      border: 1px solid #a7f3d0;
+      color: #047857;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-4px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .footer-note {
+      font-size: 11px;
+      color: #64748b;
+      margin-top: 22px;
+      text-align: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Ambient Light Orbs -->
+  <div class="bg-glow-1"></div>
+  <div class="bg-glow-2"></div>
+  <div class="bg-glow-3"></div>
+  <div class="cyber-grid"></div>
+
+  <div class="login-wrapper">
+
+    <!-- LEFT: Primary Authentication Form -->
+    <div class="auth-main-panel">
+      
+      <div class="brand-header">
+        <div class="brand-icon-box">
+          <svg width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+          </svg>
+        </div>
+        <div>
+          <div class="brand-title">FNHRIP</div>
+          <div class="brand-subtitle">Sovereign Node Gateway</div>
+        </div>
+      </div>
+
+      <h2 class="auth-heading">Sign In to Health Intelligence</h2>
+      <p class="auth-lead">Authenticate with your credential profile to unlock role-governed supply chain visibility, predictive AI, and redistribution authority.</p>
+
+      <div id="authAlert" class="alert-banner"></div>
+
+      <form id="loginForm" autocomplete="on">
+        
+        <div class="form-group">
+          <label class="form-label" for="usernameInput">Identity / Username</label>
+          <div class="input-wrapper">
+            <span class="input-icon">
+              <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
+              </svg>
+            </span>
+            <input 
+              type="text" 
+              id="usernameInput" 
+              class="auth-input" 
+              placeholder="e.g. admin, officer, operator, ml_engineer" 
+              required 
+              autocomplete="username"
+            >
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="passwordInput">Security Passphrase</label>
+          <div class="input-wrapper">
+            <span class="input-icon">
+              <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
+              </svg>
+            </span>
+            <input 
+              type="password" 
+              id="passwordInput" 
+              class="auth-input" 
+              placeholder="••••••••••••" 
+              required 
+              autocomplete="current-password"
+            >
+            <button type="button" class="pwd-toggle-btn" id="togglePasswordBtn" title="Show/Hide passphrase">
+              <svg id="eyeIcon" width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
+              </svg>
+            </button>
+          </div>
+        </div>
+
+        <div class="form-meta">
+          <label class="remember-check">
+            <input type="checkbox" id="rememberMeCheck" checked>
+            <span>Retain Sovereign Session</span>
+          </label>
+          <div class="security-badge">
+            <span class="pulse-dot"></span>
+            <span>TLS / HS256 Signed</span>
+          </div>
+        </div>
+
+        <button type="submit" class="btn-login" id="submitLoginBtn">
+          <span>Authenticate & Access Platform</span>
+          <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
+          </svg>
+        </button>
+
+      </form>
+
+      <div class="footer-note">
+        <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
+        </svg>
+        <span>Federated National Health Resource Intelligence Protocol • NODE-NAT-01</span>
+      </div>
+
+    </div>
+
+    <!-- RIGHT: Sovereign Role Fast-Preset Cards -->
+    <div class="quick-roles-panel">
+      
+      <div class="panel-header">
+        <div class="panel-title">
+          <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/>
+          </svg>
+          <span>Select Role Credentials</span>
+        </div>
+        <p class="panel-desc">Click a role to populate the username. Enter the password configured by your deployment:</p>
+      </div>
+
+      <div class="roles-list" id="rolesPresetList">
+
+        <!-- Role 1: National Admin -->
+        <div class="role-card" data-username="admin" data-role="ADMIN">
+          <div class="role-icon" style="background:#eff6ff;color:#2563eb;">🛡️</div>
+          <div class="role-details">
+            <div class="role-name-row">
+              <span class="role-display-name">National Admin</span>
+              <span class="role-tag" style="background:#eff6ff;color:#1d4ed8;border:1px solid #bfdbfe;">ADMIN</span>
+            </div>
+            <div class="role-scope">Full superuser sovereignty across all national nodes</div>
+          </div>
+        </div>
+
+        <!-- Role 2: District Health Officer -->
+        <div class="role-card" data-username="officer" data-role="HEALTH_OFFICER">
+          <div class="role-icon" style="background:#fffbeb;color:#d97706;">📋</div>
+          <div class="role-details">
+            <div class="role-name-row">
+              <span class="role-display-name">District Health Officer</span>
+              <span class="role-tag" style="background:#fffbeb;color:#b45309;border:1px solid #fde68a;">OFFICER</span>
+            </div>
+            <div class="role-scope">Approve/reject transfers, alert resolution, simulation</div>
+          </div>
+        </div>
+
+        <!-- Role 3: Hospital Pharmacist -->
+        <div class="role-card" data-username="operator" data-role="PHC_OPERATOR">
+          <div class="role-icon" style="background:#ecfdf5;color:#059669;">💊</div>
+          <div class="role-details">
+            <div class="role-name-row">
+              <span class="role-display-name">Hospital Pharmacist</span>
+              <span class="role-tag" style="background:#ecfdf5;color:#047857;border:1px solid #a7f3d0;">OPERATOR</span>
+            </div>
+            <div class="role-scope">Medicine dispensing, FEFO batch receipts, attendance</div>
+          </div>
+        </div>
+
+        <!-- Role 4: ML Governance Engineer -->
+        <div class="role-card" data-username="ml_engineer" data-role="ML_ENGINEER">
+          <div class="role-icon" style="background:#faf5ff;color:#9333ea;">🧠</div>
+          <div class="role-details">
+            <div class="role-name-row">
+              <span class="role-display-name">ML Governance Lead</span>
+              <span class="role-tag" style="background:#faf5ff;color:#7e22ce;border:1px solid #e9d5ff;">ML_LEAD</span>
+            </div>
+            <div class="role-scope">Trigger FedAvg aggregation rounds, scenario simulations</div>
+          </div>
+        </div>
+
+        <!-- Role 5: Public Health Observer -->
+        <div class="role-card" data-username="viewer" data-role="VIEWER">
+          <div class="role-icon" style="background:#f1f5f9;color:#64748b;">👁️</div>
+          <div class="role-details">
+            <div class="role-name-row">
+              <span class="role-display-name">Public Health Observer</span>
+              <span class="role-tag" style="background:#f1f5f9;color:#475569;border:1px solid #cbd5e1;">VIEWER</span>
+            </div>
+            <div class="role-scope">Read-only epidemiological dashboards & surveillance</div>
+          </div>
+        </div>
+
+      </div>
+
+      <div style="font-size:11px;color:#64748b;margin-top:14px;line-height:1.4;">
+        💡 <em>Roles enforce hard cryptographic permissions on API transactions and administrative controls.</em>
+      </div>
+
+    </div>
+
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const form = document.getElementById('loginForm');
+      const usernameInput = document.getElementById('usernameInput');
+      const passwordInput = document.getElementById('passwordInput');
+      const submitBtn = document.getElementById('submitLoginBtn');
+      const alertBox = document.getElementById('authAlert');
+      const togglePwdBtn = document.getElementById('togglePasswordBtn');
+      const roleCards = document.querySelectorAll('.role-card');
+
+      // Password toggle
+      togglePwdBtn.addEventListener('click', () => {
+        const isPwd = passwordInput.getAttribute('type') === 'password';
+        passwordInput.setAttribute('type', isPwd ? 'text' : 'password');
+        togglePwdBtn.style.color = isPwd ? '#0d9488' : '#64748b';
+      });
+
+      // Quick Role Cards selection
+      roleCards.forEach(card => {
+        card.addEventListener('click', () => {
+          roleCards.forEach(c => c.classList.remove('active'));
+          card.classList.add('active');
+
+          const user = card.getAttribute('data-username');
+          const role = card.getAttribute('data-role');
+
+          usernameInput.value = user;
+          passwordInput.value = '';
+
+          // Focus animation & pulse
+          passwordInput.focus();
+          showAlert(`Selected ${card.querySelector('.role-display-name').innerText}. Enter the configured password, then authenticate.`, 'success');
+        });
+      });
+
+      // Form Submission
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const username = usernameInput.value.trim();
+        const password = passwordInput.value;
+
+        if (!username || !password) {
+          showAlert('Please enter both username and security passphrase.', 'danger');
+          return;
+        }
+
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = `
+          <svg style="animation:spin 1s linear infinite;" width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
+          </svg>
+          <span>Verifying Sovereign Credentials...</span>
+        `;
+
+        try {
+          const res = await fetch('/api/v1/auth/login', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ username, password })
+          });
+
+          const data = await res.json();
+
+          if (!res.ok) {
+            throw new Error(data.error || 'Authentication rejected by sovereign node.');
+          }
+
+          // Store authentication session
+          localStorage.setItem('fnhrip_jwt_token', data.token);
+          if (data.user) {
+            localStorage.setItem('fnhrip_user_profile', JSON.stringify(data.user));
+          }
+
+          showAlert(`Authentication successful! Welcome, ${data.user?.name || data.user?.role}. Entering platform...`, 'success');
+
+          setTimeout(() => {
+            window.location.href = '/index.html';
+          }, 600);
+
+        } catch (err) {
+          console.error('Login error:', err);
+          showAlert(err.message || 'Failed to authenticate. Verify credentials.', 'danger');
+          submitBtn.disabled = false;
+          submitBtn.innerHTML = `
+            <span>Authenticate & Access Platform</span>
+            <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
+            </svg>
+          `;
+        }
+      });
+
+      function showAlert(msg, type = 'danger') {
+        alertBox.className = `alert-banner alert-${type}`;
+        alertBox.innerHTML = `
+          <div style="display:flex;align-items:center;gap:8px;">
+            <span>${type === 'success' ? '✓' : '⚠️'}</span>
+            <span>${msg}</span>
+          </div>
+        `;
+        alertBox.style.display = 'block';
+      }
+
+      // Pre-select Admin by default if input empty
+      const firstCard = roleCards[0];
+      if (firstCard && !usernameInput.value) {
+        firstCard.classList.add('active');
+        usernameInput.value = firstCard.getAttribute('data-username');
+        passwordInput.value = firstCard.getAttribute('data-password');
+      }
+    });
+  </script>
+
+  <style>
+    @keyframes spin {
+      100% { transform: rotate(360deg); }
+    }
+  </style>
+
+</body>
+</html>
